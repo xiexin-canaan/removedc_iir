@@ -8,22 +8,6 @@ void dc_iir_fxp(INT32 *x, INT32 XLen, INT32 Num[3], INT32 Den[3], INT32 Pow2, IN
     INT32 ii;
     INT64 Tmp64;
 
-    // // init
-    // Reg0 = 0;
-    // Reg1 = 0;
-    // Reg2 = 0;
-    // // test
-    // Tmp64 = (INT64)14832 * ((INT64)(-512)<<(WLen-16)) + ((INT64)-16<<(WLen-1));
-    // Tmp64 = ROUND_LAST_KBIT((Tmp64<<Pow2)-1, WLen-1);
-    // Reg0 = SAT(Tmp64, ((INT64)1<<(WLen-1))-1, ((INT64)-1<<(WLen-1)));
-
-    // Tmp64 = (INT64)(-29663) * ((INT64)(-512)<<(WLen-16)) + ((INT64)15<<(WLen-1)) - ((INT64)-32628) * (INT64)Reg0;
-    // Tmp64 = ROUND_LAST_KBIT(Tmp64, WLen-1);
-    // Reg1 = SAT(Tmp64, ((INT64)1<<(WLen-1))-1, ((INT64)-1<<(WLen-1)));
-
-    // Tmp64 = (INT64)(14832) * ((INT64)(-512)<<(WLen-16)) - ((INT64)16247) * (INT64)Reg0;
-    // Tmp64 = ROUND_LAST_KBIT(Tmp64, WLen-1);
-    // Reg2 = SAT(Tmp64, ((INT64)1<<(WLen-1))-1, ((INT64)-1<<(WLen-1)));
     // init
     Reg0 = 0;
     Reg1 = 0;
@@ -76,7 +60,5 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     plhs[0] = mxCreateNumericMatrix(1, XLen, mxINT32_CLASS, mxREAL);
     y = (INT32 *)mxGetPr(plhs[0]);
-    // x[0] = -992;
-    // x[0] = ROUND_LAST_KBIT(x[0],1);
     dc_iir_fxp(x, XLen, Num, Den, Pow2, WLen, y);
 }
